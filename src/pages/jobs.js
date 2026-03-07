@@ -23,14 +23,34 @@ export default function JobsPage() {
         // When page loads, fetch the user's already saved job IDs from Firebase
         const fetchSavedJobs = async () => {
             const user = auth.currentUser;
-            if (!user) return;
+            if (!user) {
+                // If not logged in just load sessionStorage as normal
+                const saved = sessionStorage.getItem('savedSearch');
+                const savedQuery = sessionStorage.getItem('savedQuery');
+                if (saved) setJobs(JSON.parse(saved));
+                if (savedQuery) setSearch(savedQuery);
+                return;
+            }
 
-            // Get all saved jobs from Firebase for this user
+             //Get all saved jobs from Firebase for this user
             const snapshot = await getDocs(collection(database, 'users', user.uid, 'applications'));
-            
             // Store just the job IDs so we can filter them out
             const ids = snapshot.docs.map(doc => doc.data().job_id);
             setSavedJobIds(ids);
+
+            // Load from session storage when page loads
+            // Displays last search and jobs if never deleted and tab wasn't closed
+            //load sessionStorage after we have the IDs so we can filter correctly
+            const saved = sessionStorage.getItem('savedSearch');
+            const savedQuery = sessionStorage.getItem('savedQuery');
+
+            if (saved) {
+                // Filter out jobs that have been added to tracker since last visit
+                const filtered = JSON.parse(saved).filter(job => !ids.includes(job.job_id));
+                sessionStorage.setItem('savedSearch', JSON.stringify(filtered));
+                setJobs(filtered);
+            }
+            if (savedQuery) setSearch(savedQuery);
         };
 
         fetchSavedJobs();
@@ -49,6 +69,9 @@ export default function JobsPage() {
         if (cachedSearch === search && cachedJobs){
             const savedJobs = JSON.parse(cachedJobs).filter(job => !savedJobIds.includes(job.job_id));
             localStorage.setItem('lastJobs', JSON.stringify(savedJobs))
+            // sessionStorage stays in sync
+            sessionStorage.setItem('savedSearch', JSON.stringify(savedJobs));
+            sessionStorage.setItem('savedQuery', search);
             setJobs(savedJobs);
             setLoading(false);
             return;
@@ -79,19 +102,6 @@ export default function JobsPage() {
         // Hide loading message
         setLoading(false);
     };
-
-    // Load from session storage when page loads (seperate from other useEffect for clean-ness)
-    // Displays last search and jobs if never deleted and tab wasn't closed
-    useEffect(() => {
-        const saved = sessionStorage.getItem('savedSearch');
-        const savedQuery = sessionStorage.getItem('savedQuery')
-        if (saved) {
-            setJobs(JSON.parse(saved));
-        }
-        if (savedQuery){
-            setSearch(savedQuery);
-        }
-    }, []);
 
     const addToTracker = async (job) => {
         const user = auth.currentUser;

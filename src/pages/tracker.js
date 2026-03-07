@@ -106,6 +106,8 @@ export default function TrackerPage() {
             <div style={{display:'flex', flexWrap: 'wrap'}}>
                 <p style={{marginRight: '5px'}}> Total Applications: {applications.length}</p>
                 <p>|</p>
+                <p style={{marginRight: '5px', marginLeft: '5px'}}>Total Responses: {applications.length-countJobStatus('Applied')}</p>
+                <p>|</p>
                 <p style={{marginRight: '5px', marginLeft: '5px'}}>Applied: {countJobStatus('Applied')}</p>
                 <p>|</p>
                 <p style={{marginRight: '5px', marginLeft: '5px'}}>Interview: {countJobStatus('Interview')}</p>
@@ -120,6 +122,7 @@ export default function TrackerPage() {
                 <p>|</p>
                 <p style={{marginLeft: '5px'}}>Accepted: {countJobStatus('Accepted')}</p>
             </div>
+
             {/*<Statistics applications={applications} countJobStatus={countJobStatus()}/> //TODO */}
             <hr style={{marginBottom: "10px"}}/>
             <CardLayout>
