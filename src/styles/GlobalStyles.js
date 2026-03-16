@@ -67,6 +67,17 @@ details{
     margin-bottom: 15px;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
+#jobsPage a:visited { /*After a link on jobsPage has been clicked, turn the text gray*/
+    color: #777;
+}
+
+#jobsPage nav a:visited {
+    color: white;
+}
 
 #background_image::before { /*Allows for the background image to be sepearte from the rest of the text and elements*/
     content: ""; /*required for pseudo-element*/

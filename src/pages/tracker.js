@@ -5,6 +5,7 @@ import Nav from '../components/Nav';
 import { useState, useEffect } from 'react';
 import { auth, database } from '../library/firebaseConfig';
 import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import Head from 'next/head'; // tab header
 
 export default function TrackerPage() {
     // Stores the list of saved jobs from Firebase
@@ -94,6 +95,9 @@ export default function TrackerPage() {
 
     return (
         <> {/* Empty container because functions require a parent container*/}
+            <Head>
+                <title>NextRound</title>
+            </Head>
             <GlobalStyles/>
             <Nav/>
             {/* Search bar */}

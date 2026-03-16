@@ -5,6 +5,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 import Nav from '../components/Nav';
 import { auth, database } from '../library/firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
+import Head from 'next/head'; // tab header
 
 export default function JobsPage() {
     // Stores the list of jobs returned from the API
@@ -136,7 +137,10 @@ export default function JobsPage() {
     };
 
     return (
-        <div>
+        <div id="jobsPage">
+            <Head>
+                <title>NextRound</title>
+            </Head>
             <GlobalStyles />
             <Nav />
 

@@ -2,10 +2,14 @@ import {LargeCard} from '../styles/cardStyles'; // ./ (look in same folder), ../
 import GlobalStyles from '../styles/GlobalStyles';
 import Nav from '../components/Nav';
 import Auth from '../components/Auth';
+import Head from 'next/head'; // tab header
 
 export default function LoginPage(){
     return (
     <div>
+        <Head>
+            <title>NextRound</title>
+        </Head>
         <GlobalStyles/>
         <Nav/>
         <LargeCard>
