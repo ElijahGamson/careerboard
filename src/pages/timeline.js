@@ -13,17 +13,18 @@ export default function TimelinePage(){
         <Nav/>
         <div id="titleText">
             <h1>Interested in where this project is headed?</h1>
-            <h3>Here's the plan for what will be implemented next (mostly in order)</h3>
+            <h3 style={{ fontWeight: 500, color: '#888', marginTop: '8px' }}>
+                Here's the plan for what will be implemented next
+            </h3>
         </div>
-        <LargeCard style={{textAlign:"left;"}}>
-            <h4>Last Update to NextRound: 3/16/2026</h4>
+        <LargeCard>
+            <h4>Last Update to NextRound: 7/27/2026</h4>
             <br/>
             <ol>
                 <li>Let users add jobs found outside this site to Tracker</li>
                 <li>Let users create own statuses in dropdown on Tracker</li>
                 <li>Add refresh button to jobs page</li>
                 <li>Calendar Page</li>
-                <li>Make UI not so plain</li>
             </ol>
         </LargeCard>
     </div>

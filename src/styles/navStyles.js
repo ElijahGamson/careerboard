@@ -3,21 +3,29 @@ import styled from 'styled-components';
 // Define your styled elements
 const NavStyle = styled.div`
 nav {
-    background-color: #1e3a8a;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    background-color: #3d3530;           /* warm charcoal */
+    padding: 16px 24px;
+    margin-bottom: 28px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 nav a { /*Targets any <a> element in a <nav> element*/
-    color: white;
-    margin-right: 10%;
+    color: rgba(255, 255, 255, 0.75);    /* slightly transparent by default */
+    padding: 8px 16px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);  /* subtle highlight on hover */
+    text-decoration: none;
 }
 `;
 

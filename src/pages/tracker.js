@@ -107,28 +107,45 @@ export default function TrackerPage() {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <div style={{display:'flex', flexWrap: 'wrap'}}>
-                <p style={{marginRight: '5px'}}> Total Applications: {applications.length}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Total Responses: {applications.length-countJobStatus('Applied')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Applied: {countJobStatus('Applied')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Interview: {countJobStatus('Interview')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>OA: {countJobStatus('OA')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Awaiting Next Steps: {countJobStatus('Awaiting Next Steps')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Rejected after Steps: {countJobStatus('Rejected after Interview, OA, etc.')}</p>
-                <p>|</p>
-                <p style={{marginRight: '5px', marginLeft: '5px'}}>Cold Rejected: {countJobStatus('Cold Rejected')}</p>
-                <p>|</p>
-                <p style={{marginLeft: '5px'}}>Accepted: {countJobStatus('Accepted')}</p>
+
+            {/* Status counts displayed as pill badges instead of pipe-separated text */}
+            <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px',
+                marginBottom: '16px'
+            }}>
+                {[
+                    { label: 'Total', count: applications.length, color: '#fff' },
+                    { label: 'Responses', count: applications.length - countJobStatus('Applied'), color: '#fff' },
+                    { label: 'Applied', count: countJobStatus('Applied'), color: '#fff' },
+                    { label: 'Interview', count: countJobStatus('Interview'), color: '#ffff00' },
+                    { label: 'OA', count: countJobStatus('OA'), color: '#00aaff' },
+                    { label: 'Awaiting', count: countJobStatus('Awaiting Next Steps'), color: '#cc00ff' },
+                    { label: 'Rejected (Steps)', count: countJobStatus('Rejected after Interview, OA, etc.'), color: '#ff7700' },
+                    { label: 'Cold Rejected', count: countJobStatus('Cold Rejected'), color: '#ff0000' },
+                    { label: 'Accepted', count: countJobStatus('Accepted'), color: '#6bab73' },
+                ].map(stat => (
+                    <div key={stat.label} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 14px',
+                        background: 'white',
+                        borderRadius: '999px',
+                        fontSize: '0.85rem',
+                        fontWeight: 500,
+                        borderLeft: `3px solid ${stat.color}`,
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                    }}>
+                        <span style={{ color: '#888' }}>{stat.label}</span>
+                        <span style={{ fontWeight: 700 }}>{stat.count}</span>
+                    </div>
+                ))}
             </div>
 
             {/*<Statistics applications={applications} countJobStatus={countJobStatus()}/> //TODO */}
-            <hr style={{marginBottom: "10px"}}/>
+            <hr style={{marginBottom: "16px", border: 'none', borderTop: '1px solid #e0dbd5'}}/>
             <CardLayout>
                 {/* Loop through saved jobs and render a TrackerCard for each one */}
                 {getFilteredJobs().map(app => (
